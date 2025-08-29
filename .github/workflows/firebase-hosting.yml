@@ -1,0 +1,19 @@
+﻿name: Deploy to Firebase Hosting (main)
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    permissions: { contents: read }
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Uses firebase.json in your repo (with "public": "parametric-static")
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}             # required by the action
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          channelId: live
+          projectId: true-vape-reviews-c5399                         # <-- put your Firebase project ID
